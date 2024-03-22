@@ -14,33 +14,61 @@ class  MyApp extends StatelessWidget {
     //return 다음에 오는 곳에 실제 코드를 작성하면됨.
     //여기서는 지금 MaterialApp 이 됨
 
-    //Flutter에서 앱 디자인을 넣는법: "위젯" 짜집기
+    //child 는 항상 쓸 수 있는게 아니라 child를 쓸 수 있는 위젯이 따로 있음
+
+    //MaterialApp 이라는 위젯 -> 구글이 제공하는 마테리얼 테마를 제공받을 수 있음(구글 스타일의 UI)
+    //Cupertino 어쩌구() 위젯 -> 아이폰 스타일 테마
+    // 그냥 커스터마이징 -> MaterialApp() 위젯을 써야함
+
+    // 이번 시간은 레이아웃 부터 시작함
+    // Scaffold() 위젯 -> 상, 중, 하로 나눠주는 Scaffold() 위젯임
+
     return MaterialApp(
-      //위젯은 대부분 대문자로 시작하고 뒤에 소괄호가 붙음 -> Text() 처럼(글자)
-      //기본적인 4가지 위젯
-      //1. 글자 위젯, 2. 이미지 위젯, 3. 아이콘 위젯, 4. 박스 위젯 -> 이것만 있으면 다~~ 할 수 있다고는 함
-      // home: Text('안녕') // 1. 글자 위젯
-      // home: Icon(Icons.star) // 2. 아이콘 위젯 -> 아이콘의 이름은 플러터 홈페이지에 있음
-      // home: Image.asset('assets/YMLogo.jpg')// 3. 이미지 위젯 -> 소괄호 안에는 경로를 넣어주면 됨
-      //이미지는 등록을 하고 사용해야함. 그래서 나는 assets 폴더에 이미지를 넣어놓았고, 이름은 정확히 assets 여야 한다고 함
-      // 등록 방법은 pubspec.yaml(앱 만들때 필요한 모든 자료들을 쭉 정리한 파일 -> 외부 패키지, 라이브러리도 기록함) 파일에 들어가서
-      //flutter 부분 아래에 assets: 하고 '-assets/' 이렇게 해주면 -> assets 안에 있는 모든 파일을 사용할 수 있음
-      // home: Container(width: 50, height: 50, color: Colors.black) // Container 혹은 SizedBox() 둘 중 하나 쓰면됨. 용도는 똑같음
-      //파라미터 안에 스타일을 줄 땐(스타일 명: 값 ,) 이렇게 주면 됨
-      //width, height 의 단위를 안써주면, 기본 단위는 LPdla -> Flutter에서의 사이즈 단위는 LP(Logical Pixel)임
-      //px로 넣지 않는 이유는 기기마다 픽셀의 절대적인 크기가 다르기 때문이다.
-      //10cm 크기의 폰에 픽셀을 가로로 500개 쑤셔박는 폰도 있고
-      //10cm 크기의 폰에 픽셀을 가로로 2000개나 쑤셔박는 폰도 있으니까요
-      //그럼 기기마다 50px이 다르게 보이겠군요
-      //근데 LP는 그냥 현실에서 쓰는 cm, inch 이런 단위랑 똑같다고 보면 됩니다. 우리가 눈으로 보는 절대적인 수치 입니다.
-      // 1cm 는 38LP 입니다.
-      // 그래서 50(LP)이면 1.2cm 정도가 되겠군요
-      //근데 어디서부터 50만큼 차지할지는 부모가 결정합니다.
-      home: Center(
-        //Center 라는 위젯은, 내 자식 위젯의 기준점을 중앙으로 설정해주는 위젯입니다.
-        child: Container(width: 50, height: 50, color: Colors.black),
-        //위젯(child 위젯) 이런느낌임
-      )
+      //오른쪽 위에 꼴보기 싫은 DEBUG 띠 없어주는 거
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          //상단
+          appBar: AppBar(
+            title: Text('Appbar'),
+            backgroundColor: Colors.lightGreen,
+          ),
+          //중단
+          body: Text('안녕'),
+          //하단
+          bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(Icons.phone),
+                Icon(Icons.message),
+                Icon(Icons.contact_page)
+              ],
+            ),
+          ),
+        )
     );
   }
 }
+
+// home: Scaffold(
+//Row 는 가로 방향으로 여러개 쓸 수 있게 만들어주는 위젯이다. 메인 디렉션(방향)은 가로이다. -> child 대신, children [ ] 딕셔너리 구조를 사용한다.
+// body: Column(
+//   //Center 위젯말고도 정렬하는 방법이 있다. Row 나 Column 안에 mainAxisAlignment: MainAxisAlignment.center/spaceEvenly 이렇게 쓸 수 있다.
+//   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   //메인 축의 부축(정축 -> main, 부축 -> cross| Row의 정축 -> 가로, 부축 -> 세로 | Columndml 정축 -> 세로, 부축 -> 가로)
+//   crossAxisAlignment: CrossAxisAlignment.stretch,
+//   children: [
+//     Icon(Icons.star),
+//     Icon(Icons.stacked_bar_chart),
+//     Icon(Icons.stacked_bar_chart_sharp)
+//   ],
+// ),
+// body: Column(
+//   // //Row 와 다르게 Column 위젯은 메인 디렉션(방향) 이 세로이다.
+//   // children: [
+//   //       Icon(Icons.star),
+//   //       Icon(Icons.stacked_bar_chart),
+//   //       Icon(Icons.stacked_bar_chart_sharp)
+//   // ],
+// ),
+// ),
